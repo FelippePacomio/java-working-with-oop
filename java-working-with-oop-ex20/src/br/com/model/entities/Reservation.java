@@ -54,39 +54,22 @@ public class Reservation {
         return sb.toString();
     }
 
-    public static boolean updateReservationByRoomNumber(
-            List<Reservation> reservationList,
-            int roomNumber,
-            Date newCheckIn,
-            Date newCheckOut) {
-
+    public String updateDates(List<Reservation> reservationList, Integer roomNumber, Date checkIn, Date checkOut) {
         Date now = new Date();
-        if (newCheckIn.before(now) || newCheckOut.before(now)) {
-            System.out.println("Error in reservation: Reservation dates for update must be future dates");
-        } else if (!newCheckOut.after(newCheckIn)) {
-            System.out.println("Error in reservation: Reservation dates for update must be future dates");
-        } else {
-            for (Reservation reservation : reservationList) {
-                if (reservation.getRoomNumber() == roomNumber) {
-
-                    if (reservationCheck(newCheckIn, newCheckOut)) {
-                        reservation.updateDates(newCheckIn, newCheckOut);
-                        return true;
-                    } else {
-                        System.out.println("Error in dates: Check-out date must be after Check-in date.");
-                        return false;
-                    }
-                }
-            }
-
+        if (checkIn.before(now) || checkOut.before(now)) {
+            return "Error in reservation: Reservation dates for update must be future dates";
         }
-        System.out.println("Reservation not found for room " + roomNumber);
-        return false;
-    }
-
-    public void updateDates(Date checkIn, Date checkOut) {
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
+        if (!checkOut.after(checkIn)) {
+            return "Error in reservation: Reservation dates for update must be future dates";
+        }
+        for (Reservation i : reservationList) {
+            if (i.getRoomNumber().equals(roomNumber)) {
+                i.setCheckIn(checkIn);
+                i.setCheckOut(checkOut);
+                return null;
+            }
+        }
+        return "Error in reservation: Invalid room number";
     }
 
     public Integer getRoomNumber() {
@@ -115,6 +98,14 @@ public class Reservation {
 
     public long getNights() {
         return nights;
+    }
+
+    public void setCheckIn(Date checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public void setCheckOut(Date checkOut) {
+        this.checkOut = checkOut;
     }
 
 }

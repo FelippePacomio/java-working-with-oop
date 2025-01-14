@@ -65,12 +65,15 @@ public class Application {
                 Date newCheckIn = sdf.parse(sc.next());
                 System.out.print("\n|Enter new Check-out date (dd/MM/yyyy): ");
                 Date newCheckOut = sdf.parse(sc.next());
+                
+                Reservation r = new Reservation();
+                String error = r.updateDates(reservationList, roomNumber, newCheckIn, newCheckOut);
 
-                boolean updated = Reservation.updateReservationByRoomNumber(
-                        reservationList, roomNumber, newCheckIn, newCheckOut);
-
-                if (updated) {
-                    System.out.println("Reservation updated successfully!");
+                if (error != null) {
+                    System.out.println(error);
+                    System.out.println("reservation" + r.listReservation(reservationList));
+                } else {
+                    System.out.println("Reservation updated successfully");
                 }
                 returnTo();
                 break;
