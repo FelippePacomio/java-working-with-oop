@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import br.com.model.exceptions.DomainExceptions;
 
 public class Reservation {
 
@@ -16,7 +17,10 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Integer roomNumber, Date checkIn, Date checkOut) {
+    public Reservation(Integer roomNumber, Date checkIn, Date checkOut) throws DomainExceptions {
+         if (!checkOut.after(checkIn)) {
+            throw new DomainExceptions("Error in reservation: Reservation dates for update must be future dates");
+        }
         this.roomNumber = roomNumber;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -26,15 +30,6 @@ public class Reservation {
         long diff = checkOut.getTime() - checkIn.getTime(); // Diferença em milissegundos
         this.nights = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS); // Converte para dias
         return this.nights;
-    }
-
-    public static boolean reservationCheck(Date checkIn, Date checkOut) {
-        if (!checkOut.after(checkIn)) {
-            System.out.println("Error in reservation: Check-Out date must be after Check-In date");
-        } else {
-            return true;
-        }
-        return false;
     }
 
     public String listReservation(List<Reservation> reservationList) {
@@ -54,22 +49,21 @@ public class Reservation {
         return sb.toString();
     }
 
-    public String updateDates(List<Reservation> reservationList, Integer roomNumber, Date checkIn, Date checkOut) {
+    public void updateDates(List<Reservation> reservationList, Integer roomNumber, Date checkIn, Date checkOut) throws DomainExceptions {
         Date now = new Date();
         if (checkIn.before(now) || checkOut.before(now)) {
-            return "Error in reservation: Reservation dates for update must be future dates";
+            throw new DomainExceptions("Error in reservation: Reservation dates for update must be future dates");
         }
         if (!checkOut.after(checkIn)) {
-            return "Error in reservation: Reservation dates for update must be future dates";
+            throw new DomainExceptions("Error in reservation: Reservation dates for update must be future dates");
         }
         for (Reservation i : reservationList) {
             if (i.getRoomNumber().equals(roomNumber)) {
                 i.setCheckIn(checkIn);
                 i.setCheckOut(checkOut);
-                return null;
             }
         }
-        return "Error in reservation: Invalid room number";
+        throw new DomainExceptions("Error in reservation: Invalid room number");
     }
 
     public Integer getRoomNumber() {
