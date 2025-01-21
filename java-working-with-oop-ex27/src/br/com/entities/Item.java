@@ -54,18 +54,18 @@ public class Item {
         return sb.toString();
     }
 
-    public String listItem2(List<Item> itemList) {
+    public static String listItemForCsv(List<Item> itemList) {
         StringBuilder sb = new StringBuilder();
         for (Item i : itemList) {
             sb.append("\n");
             sb.append(i.getName());
             sb.append(",");
-            sb.append(calculateQuantity());
+            sb.append(calculateTotal(i.getQuantity(), i.getPrice()));
         }
         return sb.toString();
     }
 
-    public Double calculateQuantity() {
+    public static Double calculateTotal(Integer quantity, Double price) {
         return quantity * price;
     }
 
