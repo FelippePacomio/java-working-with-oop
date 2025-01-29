@@ -12,7 +12,7 @@ import java.util.List;
 public class Application {
 
     static Scanner sc = new Scanner(System.in);
-    static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    
     static List<Reservation> reservationList = new ArrayList<>();
 
     public static void main(String[] args) {
