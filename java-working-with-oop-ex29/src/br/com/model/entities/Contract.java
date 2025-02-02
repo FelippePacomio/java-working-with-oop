@@ -1,15 +1,15 @@
 package br.com.model.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Contract {
 
     private Integer number;
-    private Date date;
+    private LocalDateTime date;
     private Double totalValue;
     private Installment installment;
 
-    public Contract(Integer number, Date date, Double totalValue, Installment installment) {
+    public Contract(Integer number, LocalDateTime date, Double totalValue, Installment installment) {
         this.date = date;
         this.installment = installment;
         this.number = number;
@@ -22,14 +22,6 @@ public class Contract {
 
     public void setNumber(Integer number) {
         this.number = number;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public Double getTotalValue() {
@@ -47,6 +39,20 @@ public class Contract {
     public void setInstallment(Installment installment) {
         this.installment = installment;
     }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
     
-    
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(date);
+        sb.append(" - ");
+        return sb.toString();
+    }
+
 }

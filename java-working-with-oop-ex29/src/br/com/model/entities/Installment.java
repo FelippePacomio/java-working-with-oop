@@ -1,30 +1,30 @@
 package br.com.model.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Installment {
 
-    private Date dueDate;
-    private Double amount;
+    private LocalDateTime dueDate;
+    private Integer amount;
 
-    public Installment(Date dueDate, Double amount) {
+    public Installment(LocalDateTime dueDate, Integer amount) {
         this.amount = amount;
         this.dueDate = dueDate;
     }
 
-    public Date getDueDate() {
+    public LocalDateTime getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
 
-    public Double getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
     
