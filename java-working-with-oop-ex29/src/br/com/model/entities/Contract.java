@@ -1,17 +1,18 @@
 package br.com.model.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Contract {
 
     private Integer number;
-    private LocalDateTime date;
+    private LocalDate date;
     private Double totalValue;
-    private Installment installment;
+    private List<Installment> installment = new ArrayList<>();
 
-    public Contract(Integer number, LocalDateTime date, Double totalValue, Installment installment) {
+    public Contract(Integer number, LocalDate date, Double totalValue) {
         this.date = date;
-        this.installment = installment;
         this.number = number;
         this.totalValue = totalValue;
     }
@@ -32,27 +33,16 @@ public class Contract {
         this.totalValue = totalValue;
     }
 
-    public Installment getInstallment() {
-        return installment;
-    }
-
-    public void setInstallment(Installment installment) {
-        this.installment = installment;
-    }
-
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
-    
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(date);
-        sb.append(" - ");
-        return sb.toString();
+
+    public List<Installment> getInstallment() {
+        return installment;
     }
 
 }

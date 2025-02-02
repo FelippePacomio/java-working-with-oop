@@ -3,13 +3,9 @@ package br.com.application;
 import br.com.model.entities.Contract;
 import br.com.model.entities.Installment;
 import br.com.model.services.ContractService;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import java.util.Date;
 
 public class Program {
 
@@ -28,13 +24,13 @@ public class Program {
             int number = sc.nextInt();
             sc.nextLine();
             System.out.print("|Date (dd/MM/yyyy): ");
-            LocalDateTime date = LocalDate.parse(sc.next(), fmt).atStartOfDay();
+            LocalDate date = LocalDate.parse(sc.next(), fmt);
             System.out.print("|Contract value $: ");
             double totalValue = sc.nextDouble();
             System.out.print("|Total installments: ");
             int amount = sc.nextInt();
             System.out.println("\n|--ALL INSTALLMENTS--|");
-            Contract contract = new Contract(number, date, totalValue, new Installment(date, amount));
+            Contract contract = new Contract(number, date, totalValue);
             ContractService service = new ContractService();
             service.processContract(contract, amount);
             sc.close();
