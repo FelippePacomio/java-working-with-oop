@@ -1,5 +1,6 @@
 package br.com.application;
 
+import br.com.model.entities.Employee;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,17 +12,18 @@ public class Program {
 
     public static void main(String[] args) {
 
-        List<String> list = new ArrayList<>();
-        String path = "B:\\in.txt";
+        List<Employee> list = new ArrayList<>();
+        String path = "C:\\temp\\in.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String name = br.readLine();
-            while (name != null) {
-                list.add(name);
-                name = br.readLine();
+            String employeeCsv = br.readLine();
+            while (employeeCsv != null) {
+                String[] fields = employeeCsv.split(",");
+                list.add(new Employee(fields[0], Double.parseDouble(fields[1])));
+                employeeCsv = br.readLine();
             }
             Collections.sort(list);
-            for (String s : list) {
-                System.out.println(s);
+            for (Employee emp : list) {
+                System.out.println(emp.getName() + ", " + emp.getSalary());
             }
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
